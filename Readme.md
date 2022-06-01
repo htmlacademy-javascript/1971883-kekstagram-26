@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
 * Студент: [Владислав Иванов](https://up.htmlacademy.ru/javascript/26/user/1971883).
-* Наставник: `Неизвестно`.
+* Наставник: [Михаил Кислый](https://htmlacademy.ru/profile/smart-grizzly).
 
 ---
 
