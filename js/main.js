@@ -1,6 +1,6 @@
 // Функция, возвращающая случайное целое число из переданного диапазона включительно
 
-const getRandomNumber = function (minNumber, maxNumber) {
+const getRandomNumber = (minNumber, maxNumber) => {
   if (minNumber < 0 || maxNumber < 0) {
     return 'Ошибка. диапазон чисел может быть только положительный, включая 0';
   }
@@ -16,7 +16,7 @@ getRandomNumber(1, 10);
 
 // Функция для проверки максимальной длины строки
 
-const checkStringLength = function (checkingString, maxStringLength) {
+const checkStringLength = (checkingString, maxStringLength) => {
   if (checkingString.length > maxStringLength) {
     return false;
   }
@@ -25,5 +25,3 @@ const checkStringLength = function (checkingString, maxStringLength) {
 };
 
 checkStringLength('dskafgdnsaggkn', 25);
-
-
