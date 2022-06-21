@@ -105,11 +105,13 @@ const createIdGenerator = (minNumber, maxNumber) => { // функция возв
     previousValues.push(currentValue);
     return currentValue;
   };
-}
+};
 
 const getRandomArrayElement = (elements) => elements[getRandomNumber(0, elements.length - 1)];                   // Функция, ищущая случайный элемент в переданном массиве
 
 const createCommentId = createIdGenerator(1, 100); // генерирует ID комментария
+
+const SIMILAR_COMMENT_COUNT = 50; // количество необходимых комментариев
 
 const createComment = () =>  // Функция создает комментарий
   ({
@@ -124,8 +126,6 @@ const createPhotoId = createIdGenerator(1, 25); // генерирует id оп�
 
 const createPhotoUrlId = createIdGenerator(1, 25);
 
-const SIMILAR_COMMENT_COUNT = 50; // количество необходимых комментариев
-
 const SIMILAR_PHOTO_DESCRIPTION_COUNT = 25; // Количество сгенерированых описаний фотографий
 
 const createPhotoDescription = () =>  // функция создает описание фото
@@ -139,3 +139,4 @@ const createPhotoDescription = () =>  // функция создает опис�
 const similarPhotos = Array.from({length: SIMILAR_PHOTO_DESCRIPTION_COUNT}, createPhotoDescription); // массив готовых сгенерированых описаний фото
 
 similarPhotos();
+
