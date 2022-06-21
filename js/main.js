@@ -91,7 +91,7 @@ const NAMES = [ // случайные имена комментаторов
   'Дарина'
 ];
 
-function createIdGenerator (minNumber, maxNumber) { // функция возвращает уникальное число из диапазона
+const createIdGenerator = (minNumber, maxNumber) => { // функция возвращает уникальное число из диапазона
   const previousValues = [];
 
   return function () {
@@ -107,11 +107,9 @@ function createIdGenerator (minNumber, maxNumber) { // функция возвр
   };
 }
 
-const getRandomArrayElement = (elements) =>                    // Функция, ищущая случайный элемент в переданном массиве
-  elements[getRandomNumber(0, elements.length - 1)];
-const createCommentId = createIdGenerator(1, 100); // генерирует ID комментария
+const getRandomArrayElement = (elements) => elements[getRandomNumber(0, elements.length - 1)];                   // Функция, ищущая случайный элемент в переданном массиве
 
-const SIMILAR_COMMENT_COUNT = 50; // количество необходимых комментариев
+const createCommentId = createIdGenerator(1, 100); // генерирует ID комментария
 
 const createComment = () =>  // Функция создает комментарий
   ({
@@ -122,14 +120,15 @@ const createComment = () =>  // Функция создает комментар
   });
 const similarComments = Array.from({length: SIMILAR_COMMENT_COUNT}, createComment); // массив готовых сгенерированых комментариев
 
-const SIMILAR_PHOTO_DESCRIPTION_COUNT = 25; // Количество сгенерированых описаний фотографий
-
 const createPhotoId = createIdGenerator(1, 25); // генерирует id описаний фотографий
 
 const createPhotoUrlId = createIdGenerator(1, 25);
 
-const createPhotoDescription = () =>  // функция создает описание фото
+const SIMILAR_COMMENT_COUNT = 50; // количество необходимых комментариев
 
+const SIMILAR_PHOTO_DESCRIPTION_COUNT = 25; // Количество сгенерированых описаний фотографий
+
+const createPhotoDescription = () =>  // функция создает описание фото
   ({
     id: createPhotoId(),
     url: `photos/${createPhotoUrlId()}.jpg`,
