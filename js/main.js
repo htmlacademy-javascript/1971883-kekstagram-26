@@ -107,24 +107,19 @@ function createIdGenerator (minNumber, maxNumber) { // функция возвр
   };
 }
 
-const getRandomArrayElement = (elements) => {                       // Функция, ищущая случайный элемент в переданном массиве
-  return elements[getRandomNumber(0, elements.length - 1)];
-};
-
+const getRandomArrayElement = (elements) =>                    // Функция, ищущая случайный элемент в переданном массиве
+  elements[getRandomNumber(0, elements.length - 1)];
 const createCommentId = createIdGenerator(1, 100); // генерирует ID комментария
 
 const SIMILAR_COMMENT_COUNT = 50; // количество необходимых комментариев
 
-const createComment = () => { // Функция создает комментарий
-
-  return {
+const createComment = () =>  // Функция создает комментарий
+  ({
     id: createCommentId(),
-    avatar: 'img/avatar-' + getRandomNumber(1, 6) + '.svg',
+    avatar: `img/avatar-${getRandomNumber(1, 6)}.svg`,
     message: getRandomArrayElement(COMMENTS_MESSAGES),
     name: getRandomArrayElement(NAMES)
-  };
-};
-
+  });
 const similarComments = Array.from({length: SIMILAR_COMMENT_COUNT}, createComment); // массив готовых сгенерированых комментариев
 
 const SIMILAR_PHOTO_DESCRIPTION_COUNT = 25; // Количество сгенерированых описаний фотографий
@@ -133,15 +128,15 @@ const createPhotoId = createIdGenerator(1, 25); // генерирует id оп�
 
 const createPhotoUrlId = createIdGenerator(1, 25);
 
-const createPhotoDescription = () => { // функция создает описание фото
+const createPhotoDescription = () =>  // функция создает описание фото
 
-  return {
+  ({
     id: createPhotoId(),
-    url: 'photos/' + createPhotoUrlId() + '.jpg',
+    url: `photos/${createPhotoUrlId()}.jpg`,
     description: getRandomArrayElement(DESCRIPTIONS),
     likes: getRandomNumber(15, 200),
     comments: getRandomArrayElement(similarComments),
-  };
-};
-
+  });
 const similarPhotos = Array.from({length: SIMILAR_PHOTO_DESCRIPTION_COUNT}, createPhotoDescription); // массив готовых сгенерированых описаний фото
+
+similarPhotos();
