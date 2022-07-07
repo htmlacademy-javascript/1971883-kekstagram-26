@@ -108,7 +108,7 @@ const createPhotoDescription = () =>  // функция создает опис�
     url: `photos/${createPhotoUrlId()}.jpg`,
     description: getRandomArrayElement(DESCRIPTIONS),
     likes: getRandomNumber(15, 200),
-    comments: getRandomArrayElement(similarComments),
+    comments: [getRandomArrayElement(similarComments)],
   });
 const similarPhotos = () => Array.from({length: SIMILAR_PHOTO_DESCRIPTION_COUNT}, createPhotoDescription); // массив готовых сгенерированых описаний фото
 
