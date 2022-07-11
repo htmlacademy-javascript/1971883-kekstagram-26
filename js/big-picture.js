@@ -47,6 +47,7 @@ const buttonClose = bigPictureOverlay.querySelector('.big-picture__cancel');
 
 buttonClose.addEventListener('click', () => {
   bigPictureOverlay.classList.add('hidden');
+  document.querySelector('body').classList.remove('modal-open');
 });
 
 const ESC_KEY_NUMBER = 27;
@@ -54,6 +55,7 @@ const ESC_KEY_NUMBER = 27;
 const buttonCloseEvent = (evt) => {
   if (evt.keyCode === ESC_KEY_NUMBER) {
     bigPictureOverlay.classList.add('hidden');
+    document.querySelector('body').classList.remove('modal-open');
   }
 };
 
