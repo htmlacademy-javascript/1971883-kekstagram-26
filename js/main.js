@@ -1,5 +1,3 @@
-import {similarPhotos} from './data.js';
-similarPhotos();
+import './data.js';
 import './pictures.js';
-
-
+import './big-picture.js';
