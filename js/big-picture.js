@@ -49,9 +49,14 @@ buttonClose.addEventListener('click', () => {
   bigPictureOverlay.classList.add('hidden');
 });
 
-document.addEventListener('keydown', (evt) => {
-  if (evt.keyCode === 27) {
+const ESC_KEY_NUMBER = 27;
+
+const buttonCloseEvent = (evt) => {
+  if (evt.keyCode === ESC_KEY_NUMBER) {
     bigPictureOverlay.classList.add('hidden');
   }
-});
+};
+
+document.addEventListener('keydown', buttonCloseEvent);
+
 
