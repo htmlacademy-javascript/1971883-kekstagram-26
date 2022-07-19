@@ -1,11 +1,8 @@
 import { isEscapeKey } from './util.js';
-
+import { isValid } from './validate-form.js';
 const form = document.querySelector('.img-upload__form');
-
 const uploadFileInput = form.querySelector('#upload-file');
-
 const imgUploadOverlay = form.querySelector('.img-upload__overlay');
-
 const buttonCloseUploadOverlay = form.querySelector('#upload-cancel');
 
 // Скрывает форму
@@ -37,5 +34,17 @@ uploadFileInput.addEventListener('change', () => {
 // Клик по крестику закрывает форму редактирования
 
 buttonCloseUploadOverlay.addEventListener('click', closeUserForm);
+
+// Событие валидации при отправке формы
+
+form.addEventListener('submit', (evt) => {
+  evt.preventDefault();
+
+  if (!isValid()) {
+    console.log('нельзя отправлять');
+  }
+
+  else {console.log('можно отправлять');}
+});
 
 export { form };

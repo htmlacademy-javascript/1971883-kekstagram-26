@@ -2,7 +2,6 @@ import { checkStringLength } from './util.js';
 import { form } from './user-form.js';
 const pristine = new Pristine(form);
 const hashTagsInput = form.querySelector('.text__hashtags');
-const buttonSubmit = form.querySelector('.img-upload__submit');
 const commentInput = form.querySelector('.text__description');
 
 // получает массив отдельных хештегов
@@ -43,14 +42,8 @@ const validateComment = (value) => value.length === 0 || checkStringLength(value
 
 pristine.addValidator(commentInput, validateComment);
 
+const isValid = () => pristine.validate();
 
-form.addEventListener('submit', (evt) => {
-  const isValid = () => pristine.validate();
-  evt.preventDefault();
+export { isValid };
 
-  if (isValid()) {
-    console.log('можно отправлять');
-  }
 
-  console.log('нельзя');
-});
