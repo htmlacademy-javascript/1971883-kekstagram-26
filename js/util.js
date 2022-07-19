@@ -26,4 +26,8 @@ const checkStringLength = (checkingString, maxStringLength) => {
 
 checkStringLength('dskafgdnsaggkn', 25);
 
-export {getRandomNumber, checkStringLength};
+const isEscapeKey = (evt) => evt.key === 'Escape';
+
+export {getRandomNumber, checkStringLength, isEscapeKey};
+
+

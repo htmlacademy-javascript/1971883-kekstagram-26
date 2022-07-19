@@ -2,11 +2,27 @@ import './pictures.js';
 
 import { similarPictures } from './pictures.js';
 
+import { isEscapeKey } from './util.js';
+
 const bigPictureOverlay = document.querySelector('.big-picture');
 
 const minPicturesList = document.querySelectorAll('.picture');
 
 //функция отрисовывает полноразмерную картинку
+
+const closeBigPicture = () => {
+  bigPictureOverlay.classList.add('hidden');
+  document.querySelector('body').classList.remove('modal-open');
+};
+
+const bigPictureEscKeydown = (evt) => {
+  if (isEscapeKey(evt)) {
+    evt.preventDefault();
+    closeBigPicture();
+
+    document.removeEventListener('keydown', closeBigPicture);
+  }
+};
 
 minPicturesList.forEach((picture, i) => {
   picture.addEventListener('click', (evt) => {
@@ -40,25 +56,16 @@ minPicturesList.forEach((picture, i) => {
     });
 
     document.querySelector('body').classList.add('modal-open');
+
+    document.addEventListener('keydown', bigPictureEscKeydown);
   });
 });
 
 const buttonClose = bigPictureOverlay.querySelector('.big-picture__cancel');
 
-buttonClose.addEventListener('click', () => {
-  bigPictureOverlay.classList.add('hidden');
-  document.querySelector('body').classList.remove('modal-open');
+buttonClose.addEventListener('click', (evt) => {
+  evt.preventDefault();
+  closeBigPicture();
 });
-
-const ESC_KEY_NUMBER = 27;
-
-const buttonCloseEvent = (evt) => {
-  if (evt.keyCode === ESC_KEY_NUMBER) {
-    bigPictureOverlay.classList.add('hidden');
-    document.querySelector('body').classList.remove('modal-open');
-  }
-};
-
-document.addEventListener('keydown', buttonCloseEvent);
 
 
