@@ -67,7 +67,7 @@ const showBigPictureOverlay = (userPhoto) => {
 
   commentsList.innerHTML = '';
 
-  CurrentComments = [...userPhoto];
+  CurrentComments = [...userPhoto.comments];
   createMoreComments();
   document.addEventListener('keydown', bigPictureEscKeydown);
 };
@@ -76,8 +76,7 @@ buttonClose.addEventListener('click', () => {
   closeBigPicture();
 });
 
-// клик по кнопке Загрузить еще
+// клик по загрузить ещё
 
 buttonLoadComments.addEventListener('click', () => createMoreComments());
-
 export { showBigPictureOverlay };
