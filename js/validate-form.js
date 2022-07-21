@@ -3,6 +3,7 @@ import { form } from './user-form.js';
 const pristine = new Pristine(form);
 const hashTagsInput = form.querySelector('.text__hashtags');
 const commentInput = form.querySelector('.text__description');
+const DESCRIPTION_LETTER_LENGTH = 140;
 
 // получает массив отдельных хештегов
 
@@ -38,12 +39,10 @@ pristine.addValidator(hashTagsInput, validateQuantityHashTags);
 
 // Возвращает валидность описания фото
 
-const validateComment = (value) => value.length === 0 || checkStringLength(value, 140);
+const validateComment = (value) => value.length === 0 || checkStringLength(value, DESCRIPTION_LETTER_LENGTH);
 
 pristine.addValidator(commentInput, validateComment);
 
 const isValid = () => pristine.validate();
 
 export { isValid };
-
-
