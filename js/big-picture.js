@@ -1,71 +1,82 @@
 import './pictures.js';
-
-import { similarPictures } from './pictures.js';
-
 import { isEscapeKey } from './util.js';
 
 const bigPictureOverlay = document.querySelector('.big-picture');
+const buttonLoadComments = bigPictureOverlay.querySelector('.comments-loader');
+const commentsList = document.querySelector('.social__comments');
+const buttonClose = bigPictureOverlay.querySelector('.big-picture__cancel');
+const COMMENTS_COUNT = 5;
+const visibleCommentsCount = bigPictureOverlay.querySelector('.social__visible-comments-count');
+const commentsTemplate = document.querySelector('#comments-template').content.querySelector('.social__comment');
 
-const minPicturesList = document.querySelectorAll('.picture');
+let CurrentComments = [];
 
-//функция отрисовывает полноразмерную картинку
+// закрывает большую картинку
 
 const closeBigPicture = () => {
   bigPictureOverlay.classList.add('hidden');
   document.querySelector('body').classList.remove('modal-open');
 };
 
+// Событие нажатия ESC при открытой большой картинке
+
 const bigPictureEscKeydown = (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
     closeBigPicture();
+  }
 
-    document.removeEventListener('keydown', closeBigPicture);
+  document.removeEventListener('keydown', closeBigPicture);
+};
+
+// создает комментарии по шаблдону
+
+const loadComments = (comments) => {
+  if (!comments.length) {
+    return;
+  }
+
+  comments.forEach((comment) => {
+    const commentElement = commentsTemplate.cloneNode(true);
+    commentElement.querySelector('.social__picture').src = comment.avatar;
+    commentElement.querySelector('.social__text').textContent = comment.message;
+    commentsList.append(commentElement);
+  });
+};
+
+// подгружает по 5 комментариев
+
+const createMoreComments = () => {
+  buttonLoadComments.classList.remove('hidden');
+  loadComments(CurrentComments.splice(0, COMMENTS_COUNT));
+  visibleCommentsCount.textContent = commentsList.querySelectorAll('.social__comment').length;
+
+  if (!CurrentComments.length) {
+    buttonLoadComments.classList.add('hidden');
   }
 };
 
-minPicturesList.forEach((picture, i) => {
-  picture.addEventListener('click', (evt) => {
-    evt.preventDefault();
-    bigPictureOverlay.classList.remove('hidden');
+// Подгружает большую картинку
 
-    bigPictureOverlay.querySelector('img').src = similarPictures[i].url;
-    bigPictureOverlay.querySelector('.likes-count').textContent = similarPictures[i].likes;
-    bigPictureOverlay.querySelector('.comments-count').textContent = similarPictures[i].comments.length;
-    bigPictureOverlay.querySelector('.social__caption').textContent = similarPictures[i].description;
+const showBigPictureOverlay = (userPhoto) => {
+  bigPictureOverlay.classList.remove('hidden');
+  bigPictureOverlay.querySelector('img').src = userPhoto.url;
+  bigPictureOverlay.querySelector('.likes-count').textContent = userPhoto.likes;
+  bigPictureOverlay.querySelector('.comments-count').textContent = userPhoto.comments.length;
+  bigPictureOverlay.querySelector('.social__caption').textContent = userPhoto.description;
 
-    const socialCount = bigPictureOverlay.querySelector('.social__comment-count');
-    socialCount.classList.add('hidden');
+  commentsList.innerHTML = '';
 
-    const commentsLoader = bigPictureOverlay.querySelector('.comments-loader');
-    commentsLoader.classList.add('hidden');
+  CurrentComments = [...userPhoto.comments];
+  createMoreComments();
+  document.addEventListener('keydown', bigPictureEscKeydown);
+};
 
-    const commentsData = similarPictures[i].comments;
-    const commentsList = document.querySelector('.social__comments');
-
-    commentsData.forEach(({avatar, message, name}) => {
-      const commentElement = bigPictureOverlay.querySelector('.social__comment').cloneNode(true);
-
-      commentElement.querySelector('img').src = avatar;
-
-      commentElement.querySelector('img').alt = name;
-
-      commentElement.querySelector('.social__text').textContent = message;
-
-      commentsList.append(commentElement);
-    });
-
-    document.querySelector('body').classList.add('modal-open');
-
-    document.addEventListener('keydown', bigPictureEscKeydown);
-  });
-});
-
-const buttonClose = bigPictureOverlay.querySelector('.big-picture__cancel');
-
-buttonClose.addEventListener('click', (evt) => {
-  evt.preventDefault();
+buttonClose.addEventListener('click', () => {
   closeBigPicture();
 });
 
+// клик по загрузить ещё
 
+buttonLoadComments.addEventListener('click', () => createMoreComments());
+export { showBigPictureOverlay };

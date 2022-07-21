@@ -102,13 +102,25 @@ const createPhotoUrlId = createIdGenerator(1, 25);
 
 const SIMILAR_PHOTO_DESCRIPTION_COUNT = 25; // Количество сгенерированых описаний фотографий
 
+// создает массив рандомных комментариев к 1 фото
+
+const getRandomCountComments = () => {
+  const comments = [];
+
+  for (let i = 0; i < getRandomNumber(10, 20); i++) {
+    comments.push(getRandomArrayElement(similarComments));
+  }
+
+  return comments;
+};
+
 const createPhotoDescription = () =>  // функция создает описание фото
   ({
     id: createPhotoId(),
     url: `photos/${createPhotoUrlId()}.jpg`,
     description: getRandomArrayElement(DESCRIPTIONS),
     likes: getRandomNumber(15, 200),
-    comments: [getRandomArrayElement(similarComments)],
+    comments: getRandomCountComments(),
   });
 const similarPhotos = () => Array.from({length: SIMILAR_PHOTO_DESCRIPTION_COUNT}, createPhotoDescription); // массив готовых сгенерированых описаний фото
 
