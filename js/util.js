@@ -32,12 +32,13 @@ const errorBlock = document.createElement('div');
 
 // функции для выода ошибки загрузки сайта
 const body = document.querySelector('body');
+const TIME_SHOW_ERROR = 5000;
 
 const hideError = () => {
   errorBlock.classList.add('hidden');
 };
 
-const hideErrorPureFiveSeconds = () => setTimeout(hideError, 5000);
+const hideErrorPureFiveSeconds = () => setTimeout(hideError, TIME_SHOW_ERROR);
 
 const showError = (text) => {
   body.append(errorBlock);

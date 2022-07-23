@@ -12,27 +12,28 @@ const buttonScaleControlBigger = form.querySelector('.scale__control--bigger');
 const inputScaleControl = form.querySelector('.scale__control--value');
 const imgUploadPreview = form.querySelector('.img-upload__preview');
 
-let defaultScaleValue = 100;
+const DEFAULT_SCALE_VALUE = 100;
+let currentScaleValue = DEFAULT_SCALE_VALUE;
 const MIN_SCALE_VALUE = 25;
 const MAX_SCALE_VALUE = 100;
 const SCALE_CHANGE_STEP = 25;
-inputScaleControl.value = `${defaultScaleValue  }%`;
+inputScaleControl.value = `${currentScaleValue  }%`;
 
-const changePrewiewScale = () => {
-  imgUploadPreview.style.transform = `scale(${defaultScaleValue / 100})`;
+const changePreviewScale = () => {
+  imgUploadPreview.style.transform = `scale(${currentScaleValue / 100})`;
 };
 
 const minusScale = () => {
-  if (defaultScaleValue > MIN_SCALE_VALUE) {
-    inputScaleControl.value = `${(defaultScaleValue -= SCALE_CHANGE_STEP)  }%`;
-    changePrewiewScale();
+  if (currentScaleValue > MIN_SCALE_VALUE) {
+    inputScaleControl.value = `${(currentScaleValue -= SCALE_CHANGE_STEP)  }%`;
+    changePreviewScale();
   }
 };
 
 const plusScale = () => {
-  if (defaultScaleValue < MAX_SCALE_VALUE) {
-    inputScaleControl.value = `${(defaultScaleValue += SCALE_CHANGE_STEP)  }%`;
-    changePrewiewScale();
+  if (currentScaleValue < MAX_SCALE_VALUE) {
+    inputScaleControl.value = `${(currentScaleValue += SCALE_CHANGE_STEP)  }%`;
+    changePreviewScale();
   }
 };
 
@@ -72,7 +73,7 @@ const UploadMessageEscKeyDown = (evt) => {
 const showUploadMessage = (message, messageSubmitButton) => {
   body.append(message);
 
-  message.style.zIndex = 10;
+  message.style.zIndex = '10';
 
   messageSubmitButton.addEventListener('click', hideUploadMessage);
 
@@ -84,7 +85,6 @@ const showUploadMessage = (message, messageSubmitButton) => {
     }
   });
 };
-
 
 // Скрывает форму
 
@@ -118,8 +118,8 @@ buttonCloseUploadOverlay.addEventListener('click', () => {
   closeUserForm();
   uploadFileInput.value = '';
   document.querySelector('.img-filters__form').reset();
-  defaultScaleValue = 100;
-  changePrewiewScale();
+  currentScaleValue = DEFAULT_SCALE_VALUE;
+  changePreviewScale();
   imgUploadPreview.style.transform = '';
   document.querySelector('.effect-level__slider').classList.add('hidden');
   imgUploadPreview.classList = '';
