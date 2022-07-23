@@ -28,6 +28,33 @@ checkStringLength('dskafgdnsaggkn', 25);
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
-export {getRandomNumber, checkStringLength, isEscapeKey};
+const errorBlock = document.createElement('div');
+
+// функции для выода ошибки загрузки сайта
+const body = document.querySelector('body');
+const TIME_SHOW_ERROR = 5000;
+
+const hideError = () => {
+  errorBlock.classList.add('hidden');
+};
+
+const hideErrorPureFiveSeconds = () => setTimeout(hideError, TIME_SHOW_ERROR);
+
+const showError = (text) => {
+  body.append(errorBlock);
+  errorBlock.textContent = text;
+  errorBlock.style.padding = '60px 60px';
+  errorBlock.style.textAlign = 'center';
+  errorBlock.style.background = 'red';
+  errorBlock.style.color = 'white';
+  errorBlock.style.position = 'absolute';
+  errorBlock.style.top = '0';
+  errorBlock.style.left = 'center';
+  errorBlock.style.fontSize = '30px';
+  errorBlock.style.border = '3px white solid';
+  errorBlock.style.zIndex = '10';
+  hideErrorPureFiveSeconds();
+};
+export {getRandomNumber, checkStringLength, isEscapeKey, showError, body};
 
 
