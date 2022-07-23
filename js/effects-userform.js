@@ -1,9 +1,13 @@
+import { imgUploadPreview } from './user-form.js';
 import { form } from './user-form.js';
-import { imgUploadPreview } from './scale-userform.js';
 
 const sliderElement = form.querySelector('.effect-level__slider');
 const inputValue = form.querySelector('.effect-level__value');
 sliderElement.classList.add('hidden');
+
+sliderElement.classList.add('hidden');
+imgUploadPreview.style.filter = 'none';
+imgUploadPreview.classList = ['img-upload__preview'];
 
 // набор опций каждого слайдера
 
@@ -124,5 +128,3 @@ const changeEffect = (evt) => {
 // добавляет событие изменения эффекта на радиокнопку
 
 form.addEventListener('change', changeEffect);
-
-
