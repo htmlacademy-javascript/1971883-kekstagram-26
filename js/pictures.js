@@ -17,4 +17,4 @@ const renderPhotos = (photos) => {
   });
 };
 
-export { renderPhotos };
+export { renderPhotos, picturesList };
