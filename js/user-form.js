@@ -117,7 +117,6 @@ uploadFileInput.addEventListener('change', () => {
 buttonCloseUploadOverlay.addEventListener('click', () => {
   closeUserForm();
   uploadFileInput.value = '';
-  document.querySelector('.img-filters__form').reset();
   currentScaleValue = DEFAULT_SCALE_VALUE;
   changePreviewScale();
   imgUploadPreview.style.transform = '';
