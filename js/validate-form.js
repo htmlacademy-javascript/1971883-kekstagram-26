@@ -1,5 +1,6 @@
 import { checkStringLength } from './util.js';
 import { form } from './user-form.js';
+const MAX_HASHTAGS = 5;
 const DESCRIPTION_LETTER_LENGTH = 140;
 const hashTagsInput = form.querySelector('.text__hashtags');
 const commentInput = form.querySelector('.text__description');
@@ -37,7 +38,7 @@ pristine.addValidator(hashTagsInput, validateTwiceHashTags, 'Хештеги не
 
 const validateQuantityHashTags = (value) => {
   const allHAshTAgs = getAllHashtags(value);
-  return allHAshTAgs.length <= 5;
+  return allHAshTAgs.length <= MAX_HASHTAGS;
 };
 
 pristine.addValidator(hashTagsInput, validateQuantityHashTags, 'Разрешено не больше 5 хеш-тегов. Хештеги разделяются 1 пробелом', 1, false);
