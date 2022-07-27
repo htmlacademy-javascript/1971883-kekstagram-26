@@ -8,6 +8,7 @@ const MIN_SCALE_VALUE = 25;
 const MAX_SCALE_VALUE = 100;
 const SCALE_CHANGE_STEP = 25;
 
+const body = document.querySelector('body');
 const form = document.querySelector('.img-upload__form');
 const uploadFileInputElement = form.querySelector('#upload-file');
 const imgUploadOverlayElement = form.querySelector('.img-upload__overlay');
@@ -48,45 +49,36 @@ buttonScaleBiggerElement.addEventListener('click', () => {
   plusScale();
 });
 
-
-const body = document.querySelector('body');
-
 // Функции для вывода успешной загрузки фото
+
 const successMessageTemplate = document.querySelector('#success').content.querySelector('.success');
-const successMessage = successMessageTemplate.cloneNode(true);
-const successMessageSubmitButton = successMessage.querySelector('.success__button');
+const successMessageElement = successMessageTemplate.cloneNode(true);
 
-const failMessageTemplate = document.querySelector('#error').content.querySelector('.error');
-const failMessage = failMessageTemplate.cloneNode(true);
-const failMessageSubmitButton = failMessage.querySelector('.error__button');
+const errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
+const errorMessageElement = errorMessageTemplate.cloneNode(true);
 
-const hideUploadMessage = (message) => {
-  body.removeChild(message);
-};
-
-const UploadMessageEscKeyDown = (evt) => {
-  if (isEscapeKey(evt)) {
-    evt.preventDefault();
-    hideUploadMessage();
-
-    document.removeEventListener('keydown', hideUploadMessage);
-  }
-};
-
-const showUploadMessage = (message, messageSubmitButton) => {
+const showUploadMessage = (message) => {
   body.append(message);
+  const hideUploadMEssage = () => {
+    message.remove();
+  };
+  const submitButtonElement = message.querySelector('button');
 
-  message.style.zIndex = '10';
+  submitButtonElement.addEventListener('click', () => {
+    hideUploadMEssage();
+  });
 
-  messageSubmitButton.addEventListener('click', hideUploadMessage);
-
-  document.addEventListener('keydown', UploadMessageEscKeyDown);
+  document.addEventListener('keydown', () => {
+    if (isEscapeKey) {
+      hideUploadMEssage();
+    }
+  }, {once: true});
 
   document.addEventListener('click', (evt) => {
     if (!evt.target !== message) {
-      hideUploadMessage(message);
+      hideUploadMEssage();
     }
-  });
+  }, {once: true});
 };
 
 // Скрывает форму
@@ -150,12 +142,12 @@ const setUserFormSubmit = (onSuccess) => {
         () => {
           onSuccess();
           unblockButtonSubmit();
-          showUploadMessage(successMessage, successMessageSubmitButton);
+          showUploadMessage(successMessageElement);
         },
         () => {
           unblockButtonSubmit();
           closeUserForm();
-          showUploadMessage(failMessage, failMessageSubmitButton);
+          showUploadMessage(errorMessageElement);
         },
         new FormData(evt.target),
       );
