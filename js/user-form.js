@@ -2,46 +2,49 @@
 import { isEscapeKey } from './util.js';
 import { isValid } from './validate-form.js';
 import { sendData } from './api.js';
-const form = document.querySelector('.img-upload__form');
-const uploadFileInput = form.querySelector('#upload-file');
-const imgUploadOverlay = form.querySelector('.img-upload__overlay');
-const buttonCloseUploadOverlay = form.querySelector('#upload-cancel');
-const buttonSubmit = form.querySelector('#upload-submit');
-const buttonScaleControlSmaller = form.querySelector('.scale__control--smaller');
-const buttonScaleControlBigger = form.querySelector('.scale__control--bigger');
-const inputScaleControl = form.querySelector('.scale__control--value');
-const imgUploadPreview = form.querySelector('.img-upload__preview');
 
 const DEFAULT_SCALE_VALUE = 100;
-let currentScaleValue = DEFAULT_SCALE_VALUE;
 const MIN_SCALE_VALUE = 25;
 const MAX_SCALE_VALUE = 100;
 const SCALE_CHANGE_STEP = 25;
-inputScaleControl.value = `${currentScaleValue  }%`;
+
+const form = document.querySelector('.img-upload__form');
+const uploadFileInputElement = form.querySelector('#upload-file');
+const imgUploadOverlayElement = form.querySelector('.img-upload__overlay');
+const buttonCloseElement = form.querySelector('#upload-cancel');
+const buttonSubmitElement = form.querySelector('#upload-submit');
+const buttonScaleSmallerElement = form.querySelector('.scale__control--smaller');
+const buttonScaleBiggerElement = form.querySelector('.scale__control--bigger');
+const inputScaleControlElement = form.querySelector('.scale__control--value');
+const imgUploadPreviewElement = form.querySelector('.img-upload__preview');
+
+let currentScaleValue = DEFAULT_SCALE_VALUE;
+
+inputScaleControlElement.value = `${currentScaleValue  }%`;
 
 const changePreviewScale = () => {
-  imgUploadPreview.style.transform = `scale(${currentScaleValue / 100})`;
+  imgUploadPreviewElement.style.transform = `scale(${currentScaleValue / 100})`;
 };
 
 const minusScale = () => {
   if (currentScaleValue > MIN_SCALE_VALUE) {
-    inputScaleControl.value = `${(currentScaleValue -= SCALE_CHANGE_STEP)  }%`;
+    inputScaleControlElement.value = `${(currentScaleValue -= SCALE_CHANGE_STEP)  }%`;
     changePreviewScale();
   }
 };
 
 const plusScale = () => {
   if (currentScaleValue < MAX_SCALE_VALUE) {
-    inputScaleControl.value = `${(currentScaleValue += SCALE_CHANGE_STEP)  }%`;
+    inputScaleControlElement.value = `${(currentScaleValue += SCALE_CHANGE_STEP)  }%`;
     changePreviewScale();
   }
 };
 
-buttonScaleControlSmaller.addEventListener('click', () => {
+buttonScaleSmallerElement.addEventListener('click', () => {
   minusScale();
 });
 
-buttonScaleControlBigger.addEventListener('click', () => {
+buttonScaleBiggerElement.addEventListener('click', () => {
   plusScale();
 });
 
@@ -89,7 +92,7 @@ const showUploadMessage = (message, messageSubmitButton) => {
 // Скрывает форму
 
 const closeUserForm = () => {
-  imgUploadOverlay.classList.add('hidden');
+  imgUploadOverlayElement.classList.add('hidden');
   document.querySelector('body').classList.remove('modal-open');
 };
 
@@ -106,35 +109,35 @@ const imgUploadOverlayEscKeyDown = (evt) => {
 
 // При добавлении в инпут картинки открывает форму редактирования
 
-uploadFileInput.addEventListener('change', () => {
-  imgUploadOverlay.classList.remove('hidden');
+uploadFileInputElement.addEventListener('change', () => {
+  imgUploadOverlayElement.classList.remove('hidden');
   document.querySelector('body').classList.add('modal-open');
   document.addEventListener('keydown', imgUploadOverlayEscKeyDown);
 });
 
 // Клик по крестику закрывает форму редактирования
 
-buttonCloseUploadOverlay.addEventListener('click', () => {
+buttonCloseElement.addEventListener('click', () => {
   closeUserForm();
-  uploadFileInput.value = '';
+  uploadFileInputElement.value = '';
   currentScaleValue = DEFAULT_SCALE_VALUE;
   changePreviewScale();
-  imgUploadPreview.style.transform = '';
+  imgUploadPreviewElement.style.transform = '';
   document.querySelector('.effect-level__slider').classList.add('hidden');
-  imgUploadPreview.classList = '';
-  imgUploadPreview.style.filter = '';
+  imgUploadPreviewElement.classList = '';
+  imgUploadPreviewElement.style.filter = '';
 });
 
 // Функция блокирует нажатие submit
 
 const blockButtonSubmit = () => {
-  buttonSubmit.disabled = true;
-  buttonSubmit.textContent = 'Публикую...';
+  buttonSubmitElement.disabled = true;
+  buttonSubmitElement.textContent = 'Публикую...';
 };
 
 const unblockButtonSubmit = () => {
-  buttonSubmit.disabled = false;
-  buttonSubmit.textContent = 'Опубликовать';
+  buttonSubmitElement.disabled = false;
+  buttonSubmitElement.textContent = 'Опубликовать';
 };
 
 const setUserFormSubmit = (onSuccess) => {
@@ -163,4 +166,4 @@ const setUserFormSubmit = (onSuccess) => {
 export { form };
 export {setUserFormSubmit};
 export {closeUserForm};
-export {imgUploadPreview};
+export {imgUploadPreviewElement};

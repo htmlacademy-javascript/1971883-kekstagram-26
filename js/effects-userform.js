@@ -1,4 +1,4 @@
-import { imgUploadPreview } from './user-form.js';
+import { imgUploadPreviewElement } from './user-form.js';
 import { form } from './user-form.js';
 
 const sliderElement = form.querySelector('.effect-level__slider');
@@ -6,8 +6,8 @@ const inputValue = form.querySelector('.effect-level__value');
 sliderElement.classList.add('hidden');
 
 sliderElement.classList.add('hidden');
-imgUploadPreview.style.filter = 'none';
-imgUploadPreview.classList = ['img-upload__preview'];
+imgUploadPreviewElement.style.filter = 'none';
+imgUploadPreviewElement.classList = ['img-upload__preview'];
 
 // набор опций каждого слайдера
 
@@ -90,36 +90,36 @@ const changeEffect = (evt) => {
     const effectValue = evt.target.value;
     if (effectValue === 'none') {
       sliderElement.classList.add('hidden');
-      imgUploadPreview.style.filter = 'none';
-      imgUploadPreview.classList = ['img-upload__preview'];
+      imgUploadPreviewElement.style.filter = 'none';
+      imgUploadPreviewElement.classList = ['img-upload__preview'];
       return;
     }
 
     sliderElement.classList.remove('hidden');
-    imgUploadPreview.classList = ['img-upload__preview'];
-    imgUploadPreview.classList.add(`effects__preview--${effectValue}`);
+    imgUploadPreviewElement.classList = ['img-upload__preview'];
+    imgUploadPreviewElement.classList.add(`effects__preview--${effectValue}`);
     sliderElement.noUiSlider.updateOptions(sliderOptions[effectValue]);
 
     sliderElement.noUiSlider.on('update', () => {
       inputValue.value = sliderElement.noUiSlider.get();
       if (effectValue === 'chrome') {
-        imgUploadPreview.style.filter = `grayscale(${inputValue.value})`;
+        imgUploadPreviewElement.style.filter = `grayscale(${inputValue.value})`;
       }
 
       if (effectValue === 'sepia') {
-        imgUploadPreview.style.filter = `sepia(${inputValue.value})`;
+        imgUploadPreviewElement.style.filter = `sepia(${inputValue.value})`;
       }
 
       if (effectValue === 'marvin') {
-        imgUploadPreview.style.filter = `invert(${inputValue.value}%)`;
+        imgUploadPreviewElement.style.filter = `invert(${inputValue.value}%)`;
       }
 
       if (effectValue === 'phobos') {
-        imgUploadPreview.style.filter = `blur(${inputValue.value}px)`;
+        imgUploadPreviewElement.style.filter = `blur(${inputValue.value}px)`;
       }
 
       if (effectValue === 'heat') {
-        imgUploadPreview.style.filter = `brightness(${inputValue.value})`;
+        imgUploadPreviewElement.style.filter = `brightness(${inputValue.value})`;
       }
     });
   }
