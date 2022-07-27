@@ -49,7 +49,8 @@ const loadComments = (comments) => {
 const createMoreComments = () => {
   buttonLoadComments.classList.remove('hidden');
   loadComments(CurrentComments.splice(0, COMMENTS_COUNT));
-  visibleCommentsCount.textContent = commentsList.querySelectorAll('.social__comment').length;
+  const commentsListLength = commentsList.querySelectorAll('.social__comment').length;
+  visibleCommentsCount.textContent = `${commentsListLength}`;
 
   if (!CurrentComments.length) {
     buttonLoadComments.classList.add('hidden');
