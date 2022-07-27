@@ -1,8 +1,8 @@
 import { checkStringLength } from './util.js';
 import { form } from './user-form.js';
+const DESCRIPTION_LETTER_LENGTH = 140;
 const hashTagsInput = form.querySelector('.text__hashtags');
 const commentInput = form.querySelector('.text__description');
-const DESCRIPTION_LETTER_LENGTH = 140;
 
 const pristine = new Pristine(form, {
   classTo: 'text__input',

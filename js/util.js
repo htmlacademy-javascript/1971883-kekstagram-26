@@ -1,3 +1,5 @@
+const TIME_SHOW_ERROR = 5000;
+
 // Функция, возвращающая случайное целое число из переданного диапазона включительно
 
 const getRandomNumber = (minNumber, maxNumber) => {
@@ -32,7 +34,6 @@ const errorBlock = document.createElement('div');
 
 // функции для выода ошибки загрузки сайта
 const body = document.querySelector('body');
-const TIME_SHOW_ERROR = 5000;
 
 const hideError = () => {
   errorBlock.classList.add('hidden');
